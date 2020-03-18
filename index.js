@@ -13,6 +13,6 @@ app.use(cors());
 app.use("/notifications", notisRouter);
 const PORT = process.env.PORT || 4000;
 const server = app.listen(PORT, () => {
-  console.log("listening");
+  console.log("emvuidi");
 });
 notificationsSocket.init(server);
