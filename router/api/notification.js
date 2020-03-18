@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const Auth = require("../../util/Auth");
 const Notification = require("../../model/notifications");
-router.get("/", async (req, res) => {
+router.get("/", Auth, async (req, res) => {
   try {
     const resData = await Notification.find({
-      recipient: "khue"
+      recipient: req.headers.handle
     }).sort({ createAt: -1 });
     res.json(resData);
   } catch (err) {
@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
     res.status(500).json(err);
   }
 });
-router.put("/:notis_id", async (req, res) => {
+router.put("/:notis_id", Auth, async (req, res) => {
   try {
     const resData = await Notification.findOneAndUpdate(
       { _id: req.params.notis_id },
@@ -26,7 +26,7 @@ router.put("/:notis_id", async (req, res) => {
     res.status(500).json(err);
   }
 });
-router.delete("/:notis_id", async (req, res) => {
+router.delete("/:notis_id", Auth, async (req, res) => {
   try {
     const resData = await Notification.findOneAndDelete({
       _id: req.params.notis_id
