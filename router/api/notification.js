@@ -4,7 +4,8 @@ const Notification = require("../../model/notifications");
 router.get("/", async (req, res) => {
   try {
     const resData = await Notification.find({
-      recipient: req.headers.handle
+      recipient: req.headers.handle,
+      read: false
     }).sort({ createAt: -1 });
     res.json(resData);
   } catch (err) {
@@ -12,14 +13,14 @@ router.get("/", async (req, res) => {
     res.status(500).json(err);
   }
 });
-router.put("/:notis_id", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
-    const resData = await Notification.findOneAndUpdate(
-      { _id: req.params.notis_id },
-      { $set: { read: true } },
-      { new: true }
+    const notiIds = req.body;
+    const resData = await Notification.updateMany(
+      { _id: { $in: notiIds } },
+      { $set: { read: true } }
     );
-    res.json(resData);
+    res.json({ msg: "Update successfully" });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
