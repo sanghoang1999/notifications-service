@@ -2,16 +2,20 @@ const express = require("express");
 const router = express.Router();
 const Notification = require("../../model/notifications");
 router.get("/", async (req, res) => {
+  console.log(req.headers);
   try {
     const resData = await Notification.find({
-      recipient: req.headers.handle,
-      read: false
-    }).sort({ createAt: -1 });
+      recipient: req.headers.handle
+    }).sort({ _id: -1 });
     res.json(resData);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
+});
+router.get("/test", async (req, res) => {
+  await Notification.deleteMany({});
+  return res.send("emvuidi");
 });
 router.post("/", async (req, res) => {
   try {
@@ -26,11 +30,14 @@ router.post("/", async (req, res) => {
     res.status(500).json(err);
   }
 });
-router.delete("/:notis_id", async (req, res) => {
+router.delete("/:screamId/:handle", async (req, res) => {
   try {
+    console.log(req.params.screamId, req.params.handle);
     const resData = await Notification.findOneAndDelete({
-      _id: req.params.notis_id
+      screamId: req.params.screamId,
+      sender: req.params.handle
     });
+    console.log(resData);
     res.json(resData);
   } catch (err) {
     console.log(err);

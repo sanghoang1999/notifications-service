@@ -11,7 +11,10 @@ connectDB();
 app.use(express.json());
 app.use(cors());
 app.use("/notifications", notisRouter);
-const PORT = process.env.PORT || 4000;
+app.get("/cc", (req, res) => {
+  res.send("emvuidi");
+});
+const PORT = process.env.PORT || 480;
 const server = app.listen(PORT, () => {
   console.log("emvuidi");
 });
