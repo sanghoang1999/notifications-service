@@ -5,6 +5,8 @@ let sockets = {};
 
 sockets.init = function(server) {
   let io = socket.listen(server).of("/socket/notifications");
+  io.set("origins", "*:*");
+
   io.use(
     socketioJwt.authorize({
       secret: "emvuidi",
