@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const http = require("http");
 const notificationsSocket = require("./socket/notificationSocket");
 const app = express();
 const notisRouter = require("./router/api/notification");
@@ -18,4 +19,4 @@ const PORT = process.env.PORT || 4600;
 const server = app.listen(PORT, () => {
   console.log("emvuidi");
 });
-notificationsSocket.init(server);
+notificationsSocket.init(http.Server(app));
