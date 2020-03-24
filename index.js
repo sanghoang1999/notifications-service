@@ -19,4 +19,4 @@ const PORT = process.env.PORT || 4600;
 const server = app.listen(PORT, () => {
   console.log("emvuidi");
 });
-notificationsSocket.init(http.Server(app));
+notificationsSocket.init(server);
