@@ -14,7 +14,7 @@ app.use("/notifications", notisRouter);
 app.get("/cc", (req, res) => {
   res.send("emvuidi");
 });
-const PORT = process.env.PORT || 480;
+const PORT = process.env.PORT || 4600;
 const server = app.listen(PORT, () => {
   console.log("emvuidi");
 });

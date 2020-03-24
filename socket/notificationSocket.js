@@ -11,6 +11,10 @@ sockets.init = function(server) {
       handshake: true
     })
   );
+  io.configure(() => {
+    io.set("transports", ["xhr-polling"]);
+    io.set("polling duration", 10);
+  });
   io.on("connection", socket => {
     console.log("connected " + socket.decoded_token.handle);
     const { handle, imageUrl } = socket.decoded_token;
