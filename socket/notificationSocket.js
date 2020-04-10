@@ -7,12 +7,12 @@ sockets.init = function (server) {
   let io = socket
     .listen(server, { cookie: false, origins: "*:*" })
     .of("/socket/notifications");
-  // io.use(
-  //   socketioJwt.authorize({
-  //     secret: "emvuidi",
-  //     handshake: true,
-  //   })
-  // );
+  io.use(
+    socketioJwt.authorize({
+      secret: "emvuidi",
+      handshake: true,
+    })
+  );
 
   io.on("connection", (socket) => {
     const { handle, imageUrl } = socket.decoded_token;
