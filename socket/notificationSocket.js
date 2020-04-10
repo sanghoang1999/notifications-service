@@ -4,7 +4,7 @@ const Notification = require("../model/notifications");
 let sockets = {};
 
 sockets.init = function (server) {
-  let io = socket.listen(server).of("/socket/notifications");
+  let io = socket.listen(server, { cookie: false }).of("/socket/notifications");
   io.use(
     socketioJwt.authorize({
       secret: "emvuidi",
