@@ -15,7 +15,6 @@ sockets.init = function (server) {
   );
 
   io.on("connection", (socket) => {
-    console.log("connected " + socket.decoded_token.handle);
     const { handle, imageUrl } = socket.decoded_token;
     socket.join(socket.decoded_token.handle);
     socket.id = socket.decoded_token.handle;
