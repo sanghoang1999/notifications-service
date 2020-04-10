@@ -3,17 +3,16 @@ var socketioJwt = require("socketio-jwt");
 const Notification = require("../model/notifications");
 let sockets = {};
 
-sockets.init = function(server) {
+sockets.init = function (server) {
   let io = socket.listen(server).of("/socket/notifications");
-  io.origins("*:*");
   io.use(
     socketioJwt.authorize({
       secret: "emvuidi",
-      handshake: true
+      handshake: true,
     })
   );
 
-  io.on("connection", socket => {
+  io.on("connection", (socket) => {
     console.log("connected " + socket.decoded_token.handle);
     const { handle, imageUrl } = socket.decoded_token;
     socket.join(socket.decoded_token.handle);
@@ -28,7 +27,7 @@ sockets.init = function(server) {
             recipient: recipient,
             sender: handle,
             userImage: imageUrl,
-            screamId: screamId
+            screamId: screamId,
           });
           const resData = await Notis.save();
           console.log(resData);
@@ -48,7 +47,7 @@ sockets.init = function(server) {
             recipient: recipient,
             sender: handle,
             userImage: imageUrl,
-            screamId: screamId
+            screamId: screamId,
           });
           Notis.notificationId = Notis._id;
           const resData = await Notis.save();
